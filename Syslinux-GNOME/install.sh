@@ -1,15 +1,17 @@
 #!/bin/bash -e
 
+HARD_DRIVE=/dev/sdb
+
 # Definitions
 BOOT_DEVICE=/dev/sdb1
 SWAP_DEVICE=/dev/sdb2
 ROOT_DEVICE=/dev/sdb3
 
 # Reset partition table and create new DOS table
-dd if=/dev/zero of=/dev/sdb bs=2M count=1 status=progress
+dd if=/dev/zero of=${HARD_DRIVE} bs=2M count=1 status=progress
 
 # 256mb boot, 5gb swap and left for rootfs
-fdisk /dev/sdb <<EOF
+fdisk ${HARD_DRIVE} <<EOF
 o
 n
 p
@@ -33,9 +35,11 @@ EOF
 
 # Format
 mkfs.vfat ${BOOT_DEVICE}
-mkfs.btrfs ${ROOT_DEVICE}
-mswap ${SWAP_DEVICE}
+mkfs.btrfs -f ${ROOT_DEVICE}
+mkswap ${SWAP_DEVICE}
 swapon ${SWAP_DEVICE}
+
+btrfs rescue zero-log ${ROOT_DEVICE}
 
 # Create subvolumes
 mount ${ROOT_DEVICE} /mnt
@@ -47,10 +51,10 @@ popd
 umount /mnt
 
 # Mount everything into correct place
-mount -o subvolume=@root ${ROOT_DEVICE} /mnt
+mount -o subvol=@root ${ROOT_DEVICE} /mnt
 mkdir -p /mnt/{boot,var,home}
-mount -o subvolume=@var ${ROOT_DEVICE} /mnt/var
-mount -o subvolume=@home ${ROOT_DEVICE} /mnt/home
+mount -o subvol=@var ${ROOT_DEVICE} /mnt/var
+mount -o subvol=@home ${ROOT_DEVICE} /mnt/home
 mount ${BOOT_DEVICE} /mnt/boot
 
 # Install base system
@@ -65,7 +69,7 @@ echo LANG=et_EE.UTF-8 > /etc/locale.conf
 echo "ALAI" > /etc/hostname
 
 locale-gen
-ln -s /usr/share/zoneinfo/Europe/Tallinn /etc/localtime
+ln -sf /usr/share/zoneinfo/Europe/Tallinn /etc/localtime
 mkdir -p /run/systemd/resolve; touch /run/systemd/resolve/resolv.conf
 ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 

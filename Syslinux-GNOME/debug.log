@@ -1,0 +1,63 @@
+
+Welcome to fdisk (util-linux 2.29.2).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table.
+Created a new DOS disklabel with disk identifier 0x4615a803.
+
+Command (m for help): Created a new DOS disklabel with disk identifier 0x923dc96a.
+
+Command (m for help): Partition type
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended (container for logical partitions)
+Select (default p): Partition number (1-4, default 1): First sector (2048-60062499, default 2048): Last sector, +sectors or +size{K,M,G,T,P} (2048-60062499, default 60062499): 
+Created a new partition 1 of type 'Linux' and of size 256 MiB.
+
+Command (m for help): Partition type
+   p   primary (1 primary, 0 extended, 3 free)
+   e   extended (container for logical partitions)
+Select (default p): Partition number (2-4, default 2): First sector (526336-60062499, default 526336): Last sector, +sectors or +size{K,M,G,T,P} (526336-60062499, default 60062499): 
+Created a new partition 2 of type 'Linux' and of size 5 GiB.
+
+Command (m for help): Partition type
+   p   primary (2 primary, 0 extended, 2 free)
+   e   extended (container for logical partitions)
+Select (default p): Partition number (3,4, default 3): First sector (11012096-60062499, default 11012096): Last sector, +sectors or +size{K,M,G,T,P} (11012096-60062499, default 60062499): 
+Created a new partition 3 of type 'Linux' and of size 23.4 GiB.
+
+Command (m for help): Partition number (1-3, default 3): 
+The bootable flag on partition 1 is enabled now.
+
+Command (m for help): The partition table has been altered.
+Calling ioctl() to re-read partition table.
+Syncing disks.
+
+mkfs.fat 4.1 (2017-01-24)
+btrfs-progs v4.11.1
+See http://btrfs.wiki.kernel.org for more information.
+
+Label:              (null)
+UUID:               b6202ba2-f3da-4b7c-b780-2e6bc88f67c2
+Node size:          16384
+Sector size:        4096
+Filesystem size:    23.39GiB
+Block group profiles:
+  Data:             single            8.00MiB
+  Metadata:         DUP               1.00GiB
+  System:           DUP               8.00MiB
+SSD detected:       no
+Incompat features:  extref, skinny-metadata
+Number of devices:  1
+Devices:
+   ID        SIZE  PATH
+    1    23.39GiB  /dev/sdb3
+
+Setting up swapspace version 1, size = 5 GiB (5368705024 bytes)
+no label, UUID=338a7395-20cd-4ca9-b873-06e567f4c61c
+Clearing log on /dev/sdb3, previous log_root 0, level 0
+/mnt /home/gerry/gitid/ALAI-test/Syslinux-GNOME
+Create subvolume './@home'
+Create subvolume './@var'
+Create subvolume './@root'
+/home/gerry/gitid/ALAI-test/Syslinux-GNOME
