@@ -1,11 +1,17 @@
 #!/bin/bash -e
 
-HARD_DRIVE=/dev/sdb
+#Showing Hard Drive names
+lsblk --output NAME
+
+#Insert Hard Drive name
+echo "Insert Hard Drive name where to instal Arch Linux (example: sda, sdb) [Enter]:"
+read HARD_DRIVE
+
 
 # Definitions
-BOOT_DEVICE=/dev/sdb1
-SWAP_DEVICE=/dev/sdb2
-ROOT_DEVICE=/dev/sdb3
+BOOT_DEVICE=${HARD_DRIVE}1
+SWAP_DEVICE=${HARD_DRIVE}2
+ROOT_DEVICE=${HARD_DRIVE}3
 
 # Reset partition table and create new DOS table
 dd if=/dev/zero of=${HARD_DRIVE} bs=2M count=1 status=progress
